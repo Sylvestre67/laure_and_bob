@@ -20,7 +20,7 @@
                 <span class="md-caption"> {{user.location}}</span>
             </div>
 
-            <div class="discussion-panel">
+            <div scroll-glue class="discussion-panel">
                 <div>
                     <div ng-repeat="message in user.message_thread"
                         class="animate fade message-wrapper">
@@ -37,7 +37,7 @@
             </div>
 
             <form layout="row">
-                <md-input-container flex="80">
+                <md-input-container flex-gt-sm="80" flex="100">
                     <label>Message</label>
                     <textarea type      = "text"
                               ng-model  = "user.message"
@@ -46,8 +46,9 @@
                               ng-blur   = "userIsTyping($index,false)">
                     </textarea>
                 </md-input-container>
-                <md-content flex="20">
-                    <md-button type="submit"
+                <md-content flex-gt-sm="20" flex="100">
+                    <md-button id="submit"
+                               type="submit"
                                ng-click="submitNewMessage(user)"
                                class="md-raised md-primary"
                                ng-disabled="user.message.length == 0">Send</md-button>
