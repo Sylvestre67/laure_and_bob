@@ -1,14 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="lnr">
 <head>
   <% include ../partials/header.ejs %>
+  <% include ../partials/js_libraries.ejs %>
 </head>
 
 <body>
+    <div layout="row" layout-padding ng-controller="lnrChat" style="min-height:100%;">
 
-  <!--<% include ../partials/nav.ejs %>-->
+        <div layout="column"
+             flex="{{100/users.length}}"
+             layout-align="space-between stretch"
+             ng-repeat="user in users">
 
-    <p>Hello World !</p>
+            <div layout="column">
+                {{ user.isTyping }}
+                <span class="md-title">   {{user.name}}</span>
+                <span class="md-subhead"> {{user.position}}</span>
+                <span class="md-caption"> {{user.location}}</span>
+            </div>
+
+            <div class="discussion-panel">
+                <div>
+                    <div ng-repeat="message in user.message_thread"
+                        class="animate fade message-wrapper">
+                        <span class="md-caption">{{message.date | date: 'short'}}</span>
+                        <span class="md-body-1">{{message.sender}}</span>
+                        <br>
+                        <span class="md-body-2">{{message.message}}</span>
+                    </div>
+
+                    <div class="message-wrapper" ng-if="userTyping.name">
+                        <span class="md-caption">{{ userTyping.name }} is writing...</span>
+                    </div>
+                </div>
+            </div>
+
+            <form layout="row">
+                <md-input-container flex="80">
+                    <label>Message</label>
+                    <textarea type      = "text"
+                              ng-model  = "user.message"
+                              md-no-autogrow = "true"
+                              ng-focus  = "userIsTyping($index,true)"
+                              ng-blur   = "userIsTyping($index,false)">
+                    </textarea>
+                </md-input-container>
+                <md-content flex="20">
+                    <md-button type="submit"
+                               ng-click="submitNewMessage(user)"
+                               class="md-raised md-primary"
+                               ng-disabled="user.message.length == 0">Send</md-button>
+                </md-content>
+            </form>
+
+        </div>
+
+   </div>
 
 </body>
+
+<script src="http://localhost:35729/livereload.js"></script>
+
 </html>
