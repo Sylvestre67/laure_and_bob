@@ -13,12 +13,16 @@
              layout-align="space-between stretch"
              ng-repeat="user in users">
 
-            <div layout="column">
-                {{ user.isTyping }}
-                <span class="md-title">   {{user.name}}</span>
-                <span class="md-subhead"> {{user.position}}</span>
-                <span class="md-caption"> {{user.location}}</span>
+            <div class="user-card" layout="row">
+                <img src="img/avatars/{{user.name}}.jpg" />
+                <div layout="column">
+                    <span class="md-title">   {{user.name}}</span>
+                    <span class="md-subhead"> {{user.position}}</span>
+                    <span class="md-caption"> {{user.location}}</span>
+                </div>
             </div>
+
+            <md-divider></md-divider>
 
             <div scroll-glue class="discussion-panel">
                 <div>
@@ -31,7 +35,7 @@
                         <span class="md-body-2">{{message.message}}</span>
                     </div>
 
-                    <div class="message-wrapper" ng-if="userTyping.name">
+                    <div class="message-wrapper" ng-if="user.message.length > 0">
                         <span class="md-caption">{{ userTyping.name }} is writing...</span>
                     </div>
                 </div>
