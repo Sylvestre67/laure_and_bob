@@ -11,10 +11,12 @@
         <div layout="column"
              flex="{{100/users.length}}"
              layout-align="space-between stretch"
-             ng-repeat="user in users">
+             ng-repeat="user in users"
+             style="position:relative;">
+            <div class="mask"></div>
             <span class="md-caption">{{user.name}} speaking with {{user.session_information.connected_to.name}}</span>
             <div class="user-card" layout="row">
-                <img src="img/avatars/{{user.session_information.connected_to.name}}.jpg" />
+                <img  src="img/avatars/{{user.session_information.connected_to.name}}.jpg" />
                 <div layout="column">
                     <span class="md-title">   {{user.session_information.connected_to.name}}</span>
                     <span class="md-subhead"> {{user.session_information.connected_to.position}}</span>
