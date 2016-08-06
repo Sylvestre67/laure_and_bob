@@ -14,7 +14,7 @@
              ng-repeat="user in users"
              style="position:relative;">
             <div class="mask"></div>
-            <span class="md-caption">{{user.name}} speaking with {{user.session_information.connected_to.name}}</span>
+            <span class="md-caption" style="text-align:right;">{{user.name}} speaking with {{user.session_information.connected_to.name}}</span>
             <div class="user-card" layout="row">
                 <img  src="img/avatars/{{user.session_information.connected_to.name}}.jpg" />
                 <div layout="column">
