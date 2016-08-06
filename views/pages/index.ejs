@@ -33,6 +33,29 @@
                         <span class="md-body-1">{{message.sender}}</span>
                         <br>
                         <span class="md-body-2">{{message.message}}</span>
+                        <br>
+                        <span class="message-status md-caption"
+                              ng-style="(user.message.status === 'pending')
+                              ? {'color':'rgb(63,81,181)'}
+                              : {'color':'green'}">
+                            {{message.status}}
+                        </span>
+                    </div>
+
+                    <div class="animate fade message-wrapper"
+                         ng-hide="user.message.status === 'draft'"
+                         ng-style="(user.message.sender === user.name) ? {} : {'text-align':'right'}">
+                        <span class="md-caption">{{user.message.date | date: 'short'}}</span>
+                        <span class="md-body-1">{{user.message.sender}}</span>
+                        <br>
+                        <span class="md-body-2">{{user.message.message}}</span>
+                        <br>
+                        <span class="message-status md-caption"
+                              ng-style="(user.message.status === 'pending')
+                              ? {'color':'rgb(63,81,181)'}
+                              : {'color':'green'}">
+                            {{user.message.status}}
+                        </span>
                     </div>
 
                     <div class="message-wrapper" ng-if="userTyping.name">
@@ -46,8 +69,8 @@
             <form layout="row">
                 <md-input-container flex-gt-sm="80" flex="100">
                     <label>Message</label>
-                    <input type      = "text"
-                              ng-model  = "user.message"
+                    <input type = "text"
+                              ng-model  = "user.message.message"
                               ng-focus  = "userIsTyping($index,true)"
                               ng-blur   = "userIsTyping($index,false)">
                     </input>

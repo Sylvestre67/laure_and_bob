@@ -5,13 +5,20 @@ lnrControllers.controller('lnrChat',['$scope','messageProcessor',function lnrCha
 		$scope.title = "Laura and Rob";
 		$scope.userTyping = {};
 
+
+
 		//Initialize our connected Users
 		$scope.users = [
 			{
 				'name':'Laura',
 				'position':'Marketing Manager',
 				'location':'Sydney, Australia',
-				'message':'',
+				'message':{
+					'message':'',
+					'status':'draft',
+					'sender':'Laura',
+					'date':''
+				},
 				'message_thread':[],
 				'session_information':{
 					started: new Date(),
@@ -26,7 +33,12 @@ lnrControllers.controller('lnrChat',['$scope','messageProcessor',function lnrCha
 				'name':'Bob',
 				'position':'CEO',
 				'location':'Strasbourg, France',
-				'message':'',
+				'message':{
+					'message':'',
+					'status':'draft',
+					'sender':'Bob',
+					'date':''
+				},
 				'message_thread':[],
 				'session_information':{
 					started: new Date(),
@@ -40,19 +52,26 @@ lnrControllers.controller('lnrChat',['$scope','messageProcessor',function lnrCha
 		];
 
 		$scope.submitNewMessage = function(user){
-			//Create new message
-			var newMessage = {
-				'date': new Date(),
-				'message': user.message,
-				'sender': user
-			};
 
-			//Post new Message to Server (server magic is mocked using a simple Angular service returinng a promise)
-			var serverResponse = new messageProcessor.updateMessageThread(newMessage);
-			serverResponse.promise.then(function(data){
+			//Create new message
+			user.message.status = 'pending';
+			user.message.date = new Date();
+
+			//Post new Message to Server (server magic is mocked using a simple Angular service returning a promise).
+			//Upon resolving, the new Message delivered is saved to the User message thread.
+			var serverResponse = new messageProcessor.updateMessageThread(user.message);
+			serverResponse.promise.then(function(delivered_message){
 				angular.forEach($scope.users,function(user){
-					updateUserThread(data,user);
-					user.message = '';
+
+					console.log(delivered_message);
+
+					updateUserThread(delivered_message,user);
+					user.message = {
+						'message':'',
+						'status':'draft',
+						'sender':user.name,
+						'date':''
+					}
 				})
 			},function(error){
 				console.log('error');
@@ -69,7 +88,7 @@ lnrControllers.controller('lnrChat',['$scope','messageProcessor',function lnrCha
 
 		//Controllers utils
 		function updateUserThread(new_message,user){
-			return user.message_thread.push({message:new_message.message,date:new_message.date,sender:new_message.sender.name});
+			return user.message_thread.push(new_message);
 		};
 	}]
 );
