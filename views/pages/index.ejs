@@ -32,7 +32,7 @@
                          class="animate fade message-wrapper"
                          ng-style="(message.sender === user.name) ? {} : {'text-align':'right'}">
                         <span class="md-caption">{{message.date | date: 'short'}}</span>
-                        <span class="md-body-1">{{message.sender}}</span>
+                        <span class="md-body-1">{{(message.sender === user.name) ? "You" : message.sender }}</span>
                         <br>
                         <span class="md-body-2">{{message.message}}</span>
                         <br>
@@ -49,7 +49,7 @@
                          ng-hide="user.message.status === 'draft'"
                          ng-style="(user.message.sender === user.name) ? {} : {'text-align':'right'}">
                         <span class="md-caption">{{user.message.date | date: 'short'}}</span>
-                        <span class="md-body-1">{{user.message.sender}}</span>
+                        <span class="md-body-1">{{(message.sender === user.name) ? "You" : message.sender }}</span>
                         <br>
                         <span class="md-body-2">{{user.message.message}}</span>
                         <br>
@@ -61,7 +61,7 @@
                         </span>
                     </div>
 
-                    <div class="message-wrapper" ng-if="userTyping.name">
+                    <div class="message-wrapper" ng-if="(userTyping.name && userTyping.name !== user.name)">
                         <span class="md-caption">{{ userTyping.name }} is writing...</span>
                     </div>
                 </div>
