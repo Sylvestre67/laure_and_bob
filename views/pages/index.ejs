@@ -23,7 +23,8 @@
             <div scroll-glue class="discussion-panel">
                 <div>
                     <div ng-repeat="message in user.message_thread"
-                        class="animate fade message-wrapper">
+                         class="animate fade message-wrapper"
+                         ng-style="(message.sender === user.name) ? {} : {'text-align':'right'}">
                         <span class="md-caption">{{message.date | date: 'short'}}</span>
                         <span class="md-body-1">{{message.sender}}</span>
                         <br>
