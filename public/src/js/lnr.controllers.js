@@ -12,14 +12,30 @@ lnrControllers.controller('lnrChat',['$scope','messageProcessor',function lnrCha
 				'position':'Marketing Manager',
 				'location':'Sydney, Australia',
 				'message':'',
-				'message_thread':[]
+				'message_thread':[],
+				'session_information':{
+					started: new Date(),
+					connected_to: {
+						'name':'Bob',
+						'position':'CEO',
+						'location':'Strasbourg, France'
+				 	}
+				}
 			},
 			{
 				'name':'Bob',
 				'position':'CEO',
 				'location':'Strasbourg, France',
 				'message':'',
-				'message_thread':[]
+				'message_thread':[],
+				'session_information':{
+					started: new Date(),
+					connected_to: {
+						'name':'Laura',
+						'position':'Marketing Manager',
+						'location':'Sydney, Australia',
+				 	}
+				}
 			}
 		];
 
@@ -49,6 +65,7 @@ lnrControllers.controller('lnrChat',['$scope','messageProcessor',function lnrCha
 				? $scope.userTyping = $scope.users[index]
 				: $scope.userTyping = {};
 		};
+
 
 		//Controllers utils
 		function updateUserThread(new_message,user){

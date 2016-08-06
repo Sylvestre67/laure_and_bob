@@ -12,13 +12,13 @@
              flex="{{100/users.length}}"
              layout-align="space-between stretch"
              ng-repeat="user in users">
-
+            <span class="md-caption">Speaking with</span>
             <div class="user-card" layout="row">
-                <img src="img/avatars/{{user.name}}.jpg" />
+                <img src="img/avatars/{{user.session_information.connected_to.name}}.jpg" />
                 <div layout="column">
-                    <span class="md-title">   {{user.name}}</span>
-                    <span class="md-subhead"> {{user.position}}</span>
-                    <span class="md-caption"> {{user.location}}</span>
+                    <span class="md-title">   {{user.session_information.connected_to.name}}</span>
+                    <span class="md-subhead"> {{user.session_information.connected_to.position}}</span>
+                    <span class="md-caption"> {{user.session_information.connected_to.location}}</span>
                 </div>
             </div>
 
@@ -40,6 +40,8 @@
                     </div>
                 </div>
             </div>
+
+            <md-divider></md-divider>
 
             <form layout="row">
                 <md-input-container flex-gt-sm="80" flex="100">
