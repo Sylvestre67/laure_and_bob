@@ -9,7 +9,7 @@ describe('ossReporting', function() {
 
 	it('should be possible to enter text in a text area and see the message display on the discussion panel', function(){
 		// Find Laura's text area and say Hello to Bob.
-    	element(by.model('user.message')).sendKeys('Hello_bob');
+    	element(by.model('user.message.message')).sendKeys('Hello_bob');
 
 		// Submit salutations
 		element(by.id('submit')).click();
