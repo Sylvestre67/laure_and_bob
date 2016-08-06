@@ -1,6 +1,8 @@
 # Laura and Bob Chat Challenge
 
-Working demo [here][https://glacial-thicket-44009.herokuapp.com/]
+A chat application, made with Angular and Angular-Material.
+
+Working demo [here] [https://glacial-thicket-44009.herokuapp.com/]
 
 ## Running Locally
 ```sh

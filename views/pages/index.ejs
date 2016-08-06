@@ -11,8 +11,7 @@
         <div layout="column"
              flex="{{100/users.length}}"
              layout-align="space-between stretch"
-             ng-repeat="user in users"
-             style="position:relative;">
+             ng-repeat="user in users">
             <div class="mask"></div>
             <span class="md-caption" style="text-align:right;">{{user.name}} speaking with {{user.session_information.connected_to.name}}</span>
             <div class="user-card" layout="row">
