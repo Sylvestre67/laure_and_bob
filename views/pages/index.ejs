@@ -7,19 +7,19 @@
 
 <body>
     <div layout="row" layout-padding ng-controller="lnrChat" style="min-height:100%;" ng-cloak>
-
         <div layout="column"
              flex="{{100/users.length}}"
              layout-align="space-between stretch"
-             ng-repeat="user in users">
-            <div class="mask"></div>
-            <span class="md-caption" style="text-align:right;">{{user.name}} speaking with {{user.session_information.connected_to.name}}</span>
+             ng-repeat="user in session.users">
+            <span class="md-caption" style="text-align:right;">
+                {{user.name}} speaking with {{ session.users[user.connected_to].name }}
+            </span>
             <div class="user-card" layout="row">
-                <img  src="img/avatars/{{user.session_information.connected_to.name}}.jpg" />
+                <img  src="img/avatars/{{session.users[user.connected_to].name}}.jpg" />
                 <div layout="column">
-                    <span class="md-title">   {{user.session_information.connected_to.name}}</span>
-                    <span class="md-subhead"> {{user.session_information.connected_to.position}}</span>
-                    <span class="md-caption"> {{user.session_information.connected_to.location}}</span>
+                    <span class="md-title">   {{session.users[user.connected_to].name}}</span>
+                    <span class="md-subhead"> {{session.users[user.connected_to].position}}</span>
+                    <span class="md-caption"> {{session.users[user.connected_to].location}}</span>
                 </div>
             </div>
 
@@ -27,7 +27,7 @@
 
             <div scroll-glue class="discussion-panel">
                 <div>
-                    <div ng-repeat="message in user.message_thread"
+                    <div ng-repeat="message in session.messageThread"
                          class="animate fade message-wrapper"
                          ng-style="(message.sender === user.name) ? {} : {'text-align':'right'}">
                         <span class="md-caption">{{message.date | date: 'short'}}</span>
@@ -45,18 +45,18 @@
                     </div>
 
                     <div class="animate fade message-wrapper"
-                         ng-hide="user.message.status === 'draft'"
-                         ng-style="(user.message.sender === user.name) ? {} : {'text-align':'right'}">
-                        <span class="md-caption">{{user.message.date | date: 'short'}}</span>
-                        <span class="md-body-1">{{(message.sender === user.name) ? "You" : message.sender }}</span>
+                         ng-show="user.new_message.sender ===  user.name && user.new_message.status !== 'draft'"
+                         ng-style="(user.new_message.sender === user.name) ? {} : {'text-align':'right'}">
+                        <span class="md-caption">{{user.new_message.date | date: 'short'}}</span>
+                        <span class="md-body-1">{{(user.new_message.sender === user.name) ? "You" : user.new_message.sender }}</span>
                         <br>
-                        <span class="md-body-2">{{user.message.message}}</span>
+                        <span class="md-body-2">{{user.new_message.message}}</span>
                         <br>
                         <span class="message-status md-caption"
-                              ng-style="(user.message.status === 'pending')
+                              ng-style="(user.new_message.status === 'pending')
                               ? {'color':'rgb(63,81,181)'}
                               : {'color':'green'}">
-                            {{user.message.status}}
+                            {{user.new_message.status}}
                         </span>
                     </div>
 
@@ -72,9 +72,9 @@
                 <md-input-container flex-gt-sm="80" flex="100">
                     <label>Message</label>
                     <input type = "text"
-                              ng-model  = "user.message.message"
-                              ng-focus  = "userIsTyping($index,true)"
-                              ng-blur   = "userIsTyping($index,false)">
+                           ng-model  = "user.new_message.message"
+                           ng-focus  = "userIsTyping($index,true)"
+                           ng-blur   = "userIsTyping($index,false)">
                     </input>
                 </md-input-container>
                 <md-content flex-gt-sm="20" flex="100">
@@ -82,7 +82,7 @@
                                type="submit"
                                ng-click="submitNewMessage(user)"
                                class="md-raised md-primary"
-                               ng-disabled="user.message.length == 0">Send</md-button>
+                               ng-disabled="user.new_message.message.length == 0">Send</md-button>
                 </md-content>
             </form>
 

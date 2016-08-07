@@ -9,13 +9,13 @@ describe('ossReporting', function() {
 
 	it('should be possible to enter text in a text area and see the message display on the discussion panel', function(){
 		// Find Laura's text area and say Hello to Bob.
-    	element(by.model('user.message.message')).sendKeys('Hello_bob');
+    	element(by.model('user.new_message.message')).sendKeys('Hello_bob');
 
 		// Submit salutations
 		element(by.id('submit')).click();
 
 		//Lookup for message
-		var messages = element.all(by.repeater('message in user.message_thread'));
+		var messages = element.all(by.repeater('message in session.messageThread'));
 
 		//Both Messages displays in each discussion panel
 		expect(messages.count()).toEqual(2);
