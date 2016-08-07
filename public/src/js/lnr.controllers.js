@@ -27,7 +27,7 @@ lnrControllers.controller('lnrChat',['$scope','sessionProvider','messageProcesso
 				message.status = 'Delivered';
 				$scope.session.messageThread.push(message);
 
-				user.new_message = new messageProcessor('','');
+				user.new_message = new messageProcessor('',user.name);
 			});
 
 		};
